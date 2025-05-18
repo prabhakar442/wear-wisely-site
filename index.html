@@ -7,8 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <style>
     body { margin: 0; font-family: 'Roboto', sans-serif; background: #fff; }
-    header { background: #fff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
-    header .logo { color: #f60; font-weight: bold; font-size: 18px; }
+    header { background: #ff7402; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+    header .logo { color: rgb(249, 249, 249); font-weight: bold; font-size: 18px; }
     header .nav a { margin-left: 15px; text-decoration: none; color: #333; font-weight: 500; }
 
     .banner { background: #fcd62c; padding: 40px 20px; text-align: center; color: #333; }
@@ -19,7 +19,7 @@
     .services h2, .how-it-works h2, .our-promise h2, .testimonials h2, .faq h2 { margin-bottom: 20px; }
 
     .cards { display: flex; justify-content: space-around; flex-wrap: wrap; }
-    .card { background: #fff; border: 1px solid #ccc; border-radius: 10px; padding: 20px; width: 200px; margin: 10px; }
+    .card { background: #f6739f; border: 1px solid #ccc; border-radius: 10px; padding: 20px; width: 200px; margin: 10px; }
 
     .our-promise ul { list-style: none; padding: 0; }
     .our-promise ul li { margin-bottom: 10px; }
@@ -68,7 +68,7 @@
 
 .promise-text li {
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .promise-text strong {
@@ -80,9 +80,84 @@
   width: 250px;
   height: auto;
 }
+ .pricing-card {
+    position: relative;
+    display: inline-block;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+
+  .pricing-card:hover {
+    background: #fcd62c;
+  }
+
+  .price {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 10px);
+    background: #ff5722;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .pricing-card:hover .price {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+ .card {
+    position: relative;
+    display: inline-block;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+
+  .card:hover {
+    background: #fcd62c;
+  }
+
+  .price {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 10px);
+    background: #ff5722;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .card:hover .price {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
 
 
   </style>
+  
 </head>
 <body>
   <header>
@@ -90,8 +165,12 @@
     <div class="nav">
       <a href="#">Login</a>
       <a href="#">Join Us</a>
+      <a href="#">Contact us</a>
+
+      
     </div>
   </header>
+  
 
   <div class="banner">
     <h1>Do you need <span style="color: green;">URGENT</span> service?</h1>
@@ -99,11 +178,12 @@
     <p>enjoy fresh laundry & dry cleaning</p>
   </div>
   <!-- Cover Banner Section -->
-<section class="cover-banner">
-  <img src="image.png" alt="Dry Cleaning Offer - Wear Wisely">
- 
 
+<section class="cover-banner">
+  <img src="image.png" alt="Dry Cleaning Offer" class="first">
+  
 </section>
+
 <section class="our-promise">
   <h2>OUR PROMISE</h2>
   <div class="promise-content">
@@ -126,11 +206,26 @@
 
   <section class="services">
     <h2>PRICING & SERVICES</h2>
-    <div class="cards">
-      <div class="card">Wash & Fold<br>Starts @ ₹59/kg</div>
-      <div class="card">Wash & Iron<br>Starts @ ₹89/kg</div>
-      <div class="card">Express Laundry<br>Starts @ ₹149/kg</div>
-      <div class="card">Dry Cleaning<br>Starts @ ₹59/piece</div>
+    <div class="card">
+  Wash & Fold
+  <div class="price">₹59/kg</div>
+</div>
+
+<div class="card">
+  Wash & Iron
+  <div class="price">₹89/kg</div>
+</div>
+
+<div class="card">
+  Express Laundry
+  <div class="price">₹149/kg</div>
+</div>
+
+<div class="card">
+  Dry Cleaning
+  <div class="price">₹59/piece</div>
+</div>
+
     </div>
   </section>
 
@@ -144,15 +239,7 @@
     </div>
   </section>
 
-  <section class="our-promise">
-    <h2>OUR PROMISE</h2>
-    <ul>
-      <li><strong>Free pick & drop:</strong> We provide free pick & drop facility at your doorstep.</li>
-      <li><strong>Affordable:</strong> Our pricing policy is fair & transparent.</li>
-      <li><strong>Quality assurance:</strong> We strive to give best laundry & dry cleaning experience.</li>
-      <li><strong>Convenience:</strong> Book your service in less than 20 seconds.</li>
-    </ul>
-  </section>
+  
 
   <section class="testimonials">
     <h2>TESTIMONIALS</h2>
@@ -161,15 +248,100 @@
     <div class="testimonial">Roopa: Whenever I need laundry I always think of Wear Wisely.</div>
     <div class="testimonial">Mohit: A very convenient and fast service.</div>
   </section>
+  
 
-  <section class="faq">
-    <h2>FAQ'S?</h2>
-    <div class="faq-item">How does it work?</div>
-    <div class="faq-item">How many days does it take to process?</div>
-    <div class="faq-item">Do you have free pick & drop?</div>
-    <div class="faq-item">Can you deliver in 24 hours?</div>
-    <div class="faq-item">How clothes are measured?</div>
-  </section>
+  <style>
+  .faq-item {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px 0;
+    cursor: pointer;
+    background: #fff;
+    transition: background 0.3s;
+  }
+  .faq {
+  text-align: center; /* Centers the entire section */
+}
+
+.faq-item {
+  display: inline-block; /* Allows items to stay centered */
+  width: 80%; /* Adjust width for better alignment */
+  padding: 10px;
+  border: 1px solid #aaa; /* Slightly smaller border */
+  border-radius: 3px; /* Makes borders smaller */
+  margin: 10px auto; /* Centers items */
+  cursor: pointer;
+  background: #fff;
+  transition: background 0.3s;
+}
+
+.faq-item:hover {
+  background: #fcd62c;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 0;
+  padding: 0 15px;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 150px;
+  opacity: 1;
+  padding: 10px 15px;
+}
+
+  .faq-item:hover {
+    background: #fcd62c;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    opacity: 0;
+    padding: 0 15px;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 150px;
+    opacity: 1;
+    padding: 10px 15px;
+  }
+</style>
+
+<section class="faq">
+  <h2>FAQ'S?</h2>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    How does it work?
+    <div class="faq-answer">We pick up, clean, and deliver your clothes to your doorstep.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    How many days does it take to process?
+    <div class="faq-answer">Laundry takes 24-48 hours; dry cleaning varies by garment.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    Do you have free pick & drop?
+    <div class="faq-answer">Yes! We provide free doorstep pickup and delivery.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    Can you deliver in 24 hours?
+    <div class="faq-answer">Yes! Choose our Express Laundry service for 24-hour delivery.</div>
+  </div>
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    How clothes are measured?
+    <div class="faq-answer">We measure by weight (kg) for laundry and per piece for dry cleaning.</div>
+  </div>
+</section>
+
+<script>
+  function toggleFAQ(faqItem) {
+    faqItem.classList.toggle("active");
+  }
+</script>
 
   <footer class="footer">
     <div class="footer-links">
@@ -180,3 +352,7 @@
   </footer>
 </body>
 </html>
+
+
+
+
