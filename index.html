@@ -3,182 +3,446 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wear Wisely - Express Laundry</title>
+  <meta name="description" content="Wear Wisely - Premium laundry and dry cleaning services with free pickup and delivery">
+  <title>Wear Wisely - Express Laundry & Dry Cleaning Services</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Basic styles to ensure functionality before CSS loads */
+    .price-modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+    .price-modal.show { display: flex; justify-content: center; align-items: center; }
+    .modal-content { background: white; padding: 2rem; border-radius: 8px; max-width: 800px; width: 90%; position: relative; }
+    .close-modal { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; }
+    .modal-step { transition: all 0.3s ease; }
+    .hidden { display: none; opacity: 0; }
+    .visible { display: block; opacity: 1; }
+    .faq-item { margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 4px; overflow: hidden; }
+    .faq-question { padding: 1rem; background: #f9f9f9; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { padding: 0 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-item.active .faq-answer { padding: 1rem; max-height: 500px; }
+  </style>
 </head>
 <body>
+  <!-- Price Modal -->
+  <div class="price-modal" id="priceModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <button class="close-modal" aria-label="Close modal">&times;</button>
+      
+      <div class="modal-step visible" id="locationStep">
+        <h2 id="modalTitle">Check Prices for Your Location</h2>
+        <div class="location-search">
+          <input type="text" placeholder="Search Your Location" aria-label="Search location">
+        </div>
+        <div class="location-select">
+          <select id="citySelect" aria-label="Select city" required>
+            <option value="">Select City</option>
+            <option value="delhi">Delhi</option>
+            <option value="mumbai">Mumbai</option>
+            <option value="bangalore">Bangalore</option>
+          </select>
+        </div>
+        <button class="view-price-btn" id="viewPriceBtn">View Price</button>
+        <div class="delivery-info">
+          <p><span class="tick" aria-hidden="true">✔</span> Standard delivery 48 to 72 hours!</p>
+          <p><span class="tick" aria-hidden="true">✔</span> Express delivery in 24 hours!</p>
+        </div>
+      </div>
+
+      <div class="modal-step hidden" id="pricingStep">
+        <h2 id="cityHeading">Delhi Pricing</h2>
+        <div class="pricing-table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">LAUNDRY</th>
+                <th scope="col">MEN</th>
+                <th scope="col">WOMEN</th>
+                <th scope="col">WOOLEN</th>
+                <th scope="col">HOUSEHOLD</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Laundry (Per kg)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="price-list">
+            <ul>
+              <li>Wash & fold <span>₹69.00 / KG</span></li>
+              <li>Wash & iron <span>₹99.00 / KG</span></li>
+              <li>Non wearables <span>₹99.00 / KG</span></li>
+              <li>Express ~ 24 hours <span>₹199.00 / KG</span></li>
+              <li>Steam iron <span>₹69.00 / KG</span></li>
+              <li>Premium laundry <span>₹149.00 / KG</span></li>
+            </ul>
+          </div>
+          <div class="delivery-info">
+            <p>FREE PICK & DROP! MINIMUM ORDER ₹299.00</p>
+          </div>
+        </div>
+        <button class="schedule-btn" id="scheduleBtn">Schedule</button>
+        <button class="back-btn" id="backBtn">Back</button>
+      </div>
+    </div>
+  </div>
+
   <header>
     <div class="logo">WEAR WISELY</div>
-    <div class="nav">
+    <nav class="nav" aria-label="Main navigation">
       <a href="#" class="nav-link">Login</a>
       <a href="#" class="nav-link">Join Us</a>
       <a href="#" class="nav-link">Contact us</a>
-    </div>
+    </nav>
   </header>
 
-  <div class="banner">
-    <h1>Do you need <span class="urgent">URGENT</span> service?</h1>
-    <h1 class="express">express</h1>
-    <p>enjoy fresh laundry & dry cleaning</p>
-  </div>
+  <main>
+    <section class="banner" aria-label="Service banner">
+      <h1>Do you need <span class="urgent">URGENT</span> service?</h1>
+      <h1 class="express">express</h1>
+      <p>enjoy fresh laundry & dry cleaning</p>
+    </section>
 
-  <section class="cover-banner">
-    <img src="image.png" alt="Dry Cleaning Offer" class="first">
-  </section>
+    <section class="cover-banner">
+      <img src="f.jpg" alt="Dry cleaning service offer" class="first" loading="lazy">
+    </section>
 
-  <section class="our-promise">
-    <h2>OUR PROMISE</h2>
-    <div class="promise-content">
-      <div class="promise-text">
-        <ul>
-          <li><strong>Free pick & drop</strong><br>We provide free pick & drop facility at your doorstep.</li>
-          <li><strong>Affordable</strong><br>Our pricing policy is fair & transparent. What you see is what you pay!</li>
-          <li><strong>Quality assurance</strong><br>We strive to give the best laundry & dry cleaning experience.</li>
-          <li><strong>Convenience</strong><br>Book your service in less than 20 seconds.</li>
-        </ul>
-      </div>
-      <div class="promise-image">
-        <img src="image copy 2.png" alt="Laundry Girl with Basket">
-      </div>
-    </div>
-  </section>
-
-  <section class="services">
-    <h2>PRICING & SERVICES</h2>
-    <div class="cards">
-      <div class="card">
-        Wash & Fold
-        <div class="price">₹59/kg</div>
-      </div>
-      <div class="card">
-        Wash & Iron
-        <div class="price">₹89/kg</div>
-      </div>
-      <div class="card">
-        Express Laundry
-        <div class="price">₹149/kg</div>
-      </div>
-      <div class="card">
-        Dry Cleaning
-        <div class="price">₹59/piece</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="how-it-works">
-    <h2>HOW IT WORKS</h2>
-    <div class="process-steps">
-      <div class="step">
-        <div class="step-icon">1</div>
-        <h3>Book Order</h3>
-        <p>Schedule a pickup through our app or website in less than 30 seconds</p>
-      </div>
-      <div class="step">
-        <div class="step-icon">2</div>
-        <h3>Free Pickup</h3>
-        <p>We collect your laundry at your preferred time and location</p>
-      </div>
-      <div class="step">
-        <div class="step-icon">3</div>
-        <h3>Expert Cleaning</h3>
-        <p>Your clothes are professionally cleaned with eco-friendly products</p>
-      </div>
-      <div class="step">
-        <div class="step-icon">4</div>
-        <h3>Delivery</h3>
-        <p>Fresh, neatly folded clothes delivered to your doorstep</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="faq-section">
-    <div class="container">
-      <h2 class="section-title">Frequently Asked Questions</h2>
-      <p class="section-subtitle">Find quick answers to common questions about our services</p>
-      
-      <div class="faq-container">
-        <div class="faq-item" onclick="toggleFAQ(this)">
-          <div class="faq-question">
-            <h3>How does the service work?</h3>
-            <svg class="faq-icon" viewBox="0 0 24 24">
-              <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"/>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>We offer a seamless 4-step process: book your service through our app or website, we pick up your laundry at your preferred time, professionally clean your items, and deliver them back to your doorstep fresh and ready to wear.</p>
-          </div>
+    <section class="our-promise" aria-labelledby="promiseHeading">
+      <h2 id="promiseHeading">OUR PROMISE</h2>
+      <div class="promise-content">
+        <div class="promise-text">
+          <ul>
+            <li><strong>Free pick & drop</strong><br>We provide free pick & drop facility at your doorstep.</li>
+            <li><strong>Affordable</strong><br>Our pricing policy is fair & transparent. What you see is what you pay!</li>
+            <li><strong>Quality assurance</strong><br>We strive to give the best laundry & dry cleaning experience.</li>
+            <li><strong>Convenience</strong><br>Book your service in less than 20 seconds.</li>
+          </ul>
         </div>
-
-        <div class="faq-item" onclick="toggleFAQ(this)">
-          <div class="faq-question">
-            <h3>How many days does it take to process?</h3>
-            <svg class="faq-icon" viewBox="0 0 24 24">
-              <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"/>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>Standard laundry service takes 24-48 hours. Dry cleaning times vary by garment type but typically take 2-3 days. We offer express services with 24-hour turnaround for urgent needs.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFAQ(this)">
-          <div class="faq-question">
-            <h3>Do you offer free pickup and delivery?</h3>
-            <svg class="faq-icon" viewBox="0 0 24 24">
-              <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"/>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>Yes! All our services include free doorstep pickup and delivery during our standard operating hours. We provide specific time windows for your convenience.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFAQ(this)">
-          <div class="faq-question">
-            <h3>Can you deliver in 24 hours?</h3>
-            <svg class="faq-icon" viewBox="0 0 24 24">
-              <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"/>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>Absolutely. Our Express Laundry service guarantees 24-hour delivery for an additional fee. This service is available for orders placed before 12 PM for next-day delivery.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFAQ(this)">
-          <div class="faq-question">
-            <h3>How are clothes measured for pricing?</h3>
-            <svg class="faq-icon" viewBox="0 0 24 24">
-              <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"/>
-            </svg>
-          </div>
-          <div class="faq-answer">
-            <p>Laundry services are priced by weight (per kilogram) after cleaning. Dry cleaning is priced per individual garment. All items are weighed and counted in your presence during pickup.</p>
-          </div>
+        <div class="promise-image">
+          <img src="image copy.png" alt="Happy customer with laundry basket" loading="lazy">
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer class="footer">
+    <section class="services" aria-labelledby="servicesHeading">
+      <h2 id="servicesHeading">PRICING & SERVICES</h2>
+      <div class="cards">
+        <div class="card" tabindex="0" role="button" aria-label="Wash and Fold service">
+          Wash & Fold
+          <div class="price">₹59/kg</div>
+        </div>
+        <div class="card" tabindex="0" role="button" aria-label="Wash and Iron service">
+          Wash & Iron
+          <div class="price">₹89/kg</div>
+        </div>
+        <div class="card" tabindex="0" role="button" aria-label="Express Laundry service">
+          Express Laundry
+          <div class="price">₹149/kg</div>
+        </div>
+        <div class="card" tabindex="0" role="button" aria-label="Dry Cleaning service">
+          Dry Cleaning
+          <div class="price">₹59/piece</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works" aria-labelledby="howItWorksHeading">
+      <h2 id="howItWorksHeading">HOW IT WORKS</h2>
+      <div class="process-steps">
+        <article class="step">
+          <div class="step-icon" aria-hidden="true">1</div>
+          <h3>Book Order</h3>
+          <p>Schedule a pickup through our app or website in less than 30 seconds</p>
+        </article>
+        <article class="step">
+          <div class="step-icon" aria-hidden="true">2</div>
+          <h3>Free Pickup</h3>
+          <p>We collect your laundry at your preferred time and location</p>
+        </article>
+        <article class="step">
+          <div class="step-icon" aria-hidden="true">3</div>
+          <h3>Expert Cleaning</h3>
+          <p>Your clothes are professionally cleaned with eco-friendly products</p>
+        </article>
+        <article class="step">
+          <div class="step-icon" aria-hidden="true">4</div>
+          <h3>Delivery</h3>
+          <p>Fresh, neatly folded clothes delivered to your doorstep</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faqHeading">
+      <div class="container">
+        <h2 id="faqHeading" class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Find quick answers to common questions about our services</p>
+        
+        <div class="faq-container">
+          <article class="faq-item">
+            <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq1">
+              <h3>How does the service work?</h3>
+              <svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div id="faq1" class="faq-answer">
+              <p>We offer a seamless 4-step process: book your service through our app or website, we pick up your laundry at your preferred time, professionally clean your items, and deliver them back to your doorstep fresh and ready to wear.</p>
+            </div>
+          </article>
+
+          <article class="faq-item">
+            <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq2">
+              <h3>How many days does it take to process?</h3>
+              <svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div id="faq2" class="faq-answer">
+              <p>Standard laundry service takes 24-48 hours. Dry cleaning times vary by garment type but typically take 2-3 days. We offer express services with 24-hour turnaround for urgent needs.</p>
+            </div>
+          </article>
+
+          <article class="faq-item">
+            <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq3">
+              <h3>Do you offer free pickup and delivery?</h3>
+              <svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div id="faq3" class="faq-answer">
+              <p>Yes! All our services include free doorstep pickup and delivery during our standard operating hours. We provide specific time windows for your convenience.</p>
+            </div>
+          </article>
+
+          <article class="faq-item">
+            <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq4">
+              <h3>Can you deliver in 24 hours?</h3>
+              <svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div id="faq4" class="faq-answer">
+              <p>Absolutely. Our Express Laundry service guarantees 24-hour delivery for an additional fee. This service is available for orders placed before 12 PM for next-day delivery.</p>
+            </div>
+          </article>
+
+          <article class="faq-item">
+            <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq5">
+              <h3>How are clothes measured for pricing?</h3>
+              <svg class="faq-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <div id="faq5" class="faq-answer">
+              <p>Laundry services are priced by weight (per kilogram) after cleaning. Dry cleaning is priced per individual garment. All items are weighed and counted in your presence during pickup.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" aria-label="Footer">
     <div class="footer-links">
       <a href="#">Refund Policy</a> | 
-      <a href="#">Terms of Use</a>
+      <a href="#">Terms of Use</a> |
+      <a href="#">Privacy Policy</a>
     </div>
     <p class="copyright">Copyright © 2024 Wear Wisely, All Rights Reserved.</p>
   </footer>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Add click event to all FAQ items
-      const faqItems = document.querySelectorAll('.faq-item');
-      faqItems.forEach(item => {
-        item.addEventListener('click', function() {
-          this.classList.toggle('active');
-        });
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // FAQ functionality
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+      
+      question.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isExpanded);
+        item.classList.toggle('active');
+      });
+      
+      // Keyboard accessibility
+      question.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
       });
     });
-  </script>
+
+    // Price Modal functionality
+    const priceModal = document.getElementById('priceModal');
+    const closeModal = document.querySelector('.close-modal');
+    const viewPriceBtn = document.getElementById('viewPriceBtn');
+    const backBtn = document.getElementById('backBtn');
+    const scheduleBtn = document.getElementById('scheduleBtn');
+    const citySelect = document.getElementById('citySelect');
+    const locationStep = document.getElementById('locationStep');
+    const pricingStep = document.getElementById('pricingStep');
+    const cityHeading = document.getElementById('cityHeading');
+    const modalTitle = document.getElementById('modalTitle');
+    
+    // Get all elements that should open the modal
+    const priceTriggers = document.querySelectorAll('.card, .services h2');
+    
+    // Function to open modal
+    function openModal() {
+      priceModal.classList.add('show');
+      priceModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      document.body.setAttribute('aria-hidden', 'true');
+      
+      // Reset to location step when opening modal
+      locationStep.classList.remove('hidden');
+      locationStep.classList.add('visible');
+      pricingStep.classList.remove('visible');
+      pricingStep.classList.add('hidden');
+      
+      // Focus on first interactive element
+      citySelect.focus();
+    }
+    
+    // Function to close modal
+    function closeModalFunc() {
+      priceModal.classList.remove('show');
+      priceModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = 'auto';
+      document.body.setAttribute('aria-hidden', 'false');
+      
+      // Return focus to the element that opened the modal
+      if (lastFocusedElement) {
+        lastFocusedElement.focus();
+      }
+    }
+    
+    let lastFocusedElement = null;
+    
+    // Add click event to all triggers
+    priceTriggers.forEach(trigger => {
+      trigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        lastFocusedElement = document.activeElement;
+        openModal();
+      });
+      
+      // Keyboard accessibility
+      trigger.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          lastFocusedElement = document.activeElement;
+          openModal();
+        }
+      });
+    });
+    
+    // View Price button click
+    viewPriceBtn.addEventListener('click', function() {
+      const selectedCity = citySelect.value;
+      if (selectedCity) {
+        // Update city heading
+        const cityName = selectedCity.charAt(0).toUpperCase() + selectedCity.slice(1);
+        cityHeading.textContent = `${cityName} Pricing`;
+        
+        // Animate transition between steps
+        locationStep.classList.remove('visible');
+        locationStep.classList.add('hidden');
+        
+        setTimeout(() => {
+          pricingStep.classList.remove('hidden');
+          pricingStep.classList.add('visible');
+          // Enable schedule button
+          scheduleBtn.disabled = false;
+          // Focus on first interactive element in new step
+          scheduleBtn.focus();
+        }, 300);
+      } else {
+        // Show error message with better accessibility
+        const errorMsg = document.createElement('div');
+        errorMsg.className = 'error-message';
+        errorMsg.textContent = 'Please select a city first';
+        errorMsg.setAttribute('role', 'alert');
+        errorMsg.style.color = 'red';
+        errorMsg.style.marginTop = '10px';
+        
+        // Remove previous error if exists
+        const existingError = locationStep.querySelector('.error-message');
+        if (existingError) {
+          existingError.remove();
+        }
+        
+        locationStep.appendChild(errorMsg);
+        citySelect.focus();
+      }
+    });
+    
+    // Back button click
+    backBtn.addEventListener('click', function() {
+      pricingStep.classList.remove('visible');
+      pricingStep.classList.add('hidden');
+      
+      setTimeout(() => {
+        locationStep.classList.remove('hidden');
+        locationStep.classList.add('visible');
+        citySelect.focus();
+      }, 300);
+    });
+    
+    // Schedule button click
+    scheduleBtn.addEventListener('click', function() {
+      // In a real implementation, this would redirect to booking page
+      alert('Redirecting to booking page...');
+      closeModalFunc();
+    });
+    
+    // Close modal when X is clicked
+    closeModal.addEventListener('click', closeModalFunc);
+    
+    // Close modal when clicking outside
+    priceModal.addEventListener('click', function(e) {
+      if (e.target === priceModal) {
+        closeModalFunc();
+      }
+    });
+    
+    // Close modal with ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && priceModal.classList.contains('show')) {
+        closeModalFunc();
+      }
+    });
+    
+    // Initially disable schedule button
+    scheduleBtn.disabled = true;
+    
+    // Trap focus inside modal when open
+    priceModal.addEventListener('keydown', function(e) {
+      if (e.key !== 'Tab' || !priceModal.classList.contains('show')) return;
+      
+      const focusableElements = priceModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
+          e.preventDefault();
+        }
+      }
+    });
+  });
+</script>
 </body>
 </html>
