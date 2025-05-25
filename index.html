@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,23 +7,324 @@
   <meta name="description" content="Wear Wisely - Premium laundry and dry cleaning services with free pickup and delivery">
   <title>Wear Wisely - Express Laundry & Dry Cleaning Services</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Basic styles to ensure functionality before CSS loads */
-    .price-modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
-    .price-modal.show { display: flex; justify-content: center; align-items: center; }
-    .modal-content { background: white; padding: 2rem; border-radius: 8px; max-width: 800px; width: 90%; position: relative; }
-    .close-modal { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; }
-    .modal-step { transition: all 0.3s ease; }
-    .hidden { display: none; opacity: 0; }
-    .visible { display: block; opacity: 1; }
-    .faq-item { margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 4px; overflow: hidden; }
-    .faq-question { padding: 1rem; background: #f9f9f9; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-    .faq-answer { padding: 0 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-    .faq-item.active .faq-answer { padding: 1rem; max-height: 500px; }
+    /* Enhanced styles with better accessibility and performance */
+    :root {
+      --primary-color: #2c7be5;
+      --secondary-color: #6c757d;
+      --accent-color: #ff6b6b;
+      --light-bg: #f8f9fa;
+      --dark-text: #212529;
+      --light-text: #6c757d;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    /* Video Banner Styles */
+    .video-banner {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      overflow: hidden;
+    }
+    
+    .video-background {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+    
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.3);
+      z-index: 2;
+    }
+    
+    .banner-content {
+      position: absolute;
+      top: 50%;
+      right: 10%;
+      transform: translateY(-50%);
+      color: white;
+      text-align: right;
+      z-index: 3;
+      max-width: 500px;
+    }
+    
+    .banner-content h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .banner-content .express {
+      color: #ff6b6b;
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin: 10px 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .banner-content p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    
+    .video-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      z-index: 4;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .control-btn {
+      background: rgba(255,255,255,0.7);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .control-btn:hover {
+      background: rgba(255,255,255,0.9);
+    }
+    
+    /* Price modal enhancements */
+    .price-modal { 
+      display: none; 
+      position: fixed; 
+      z-index: 1000; 
+      left: 0; 
+      top: 0; 
+      width: 100%; 
+      height: 100%; 
+      background-color: rgba(0,0,0,0.5); 
+      backdrop-filter: blur(5px);
+    }
+    .price-modal.show { 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-content { 
+      background: white; 
+      padding: 2rem; 
+      border-radius: var(--border-radius); 
+      max-width: 800px; 
+      width: 90%; 
+      position: relative; 
+      box-shadow: var(--box-shadow);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .close-modal { 
+      position: absolute; 
+      top: 1rem; 
+      right: 1rem; 
+      font-size: 1.5rem; 
+      cursor: pointer; 
+      background: none;
+      border: none;
+      color: var(--secondary-color);
+      transition: var(--transition);
+    }
+    .close-modal:hover {
+      color: var(--dark-text);
+      transform: scale(1.1);
+    }
+    .modal-step { 
+      transition: var(--transition); 
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .hidden { 
+      display: none; 
+      opacity: 0; 
+    }
+    .visible { 
+      display: block; 
+      opacity: 1; 
+    }
+    
+    /* FAQ enhancements */
+    .faq-item { 
+      margin-bottom: 1rem; 
+      border: 1px solid #ddd; 
+      border-radius: var(--border-radius); 
+      overflow: hidden; 
+      transition: var(--transition);
+    }
+    .faq-item:hover {
+      border-color: var(--primary-color);
+    }
+    .faq-question { 
+      padding: 1rem; 
+      background: var(--light-bg); 
+      cursor: pointer; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      transition: var(--transition);
+    }
+    .faq-question:hover {
+      background: #e9ecef;
+    }
+    .faq-question h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--dark-text);
+    }
+    .faq-answer { 
+      padding: 0 1rem; 
+      max-height: 0; 
+      overflow: hidden; 
+      transition: max-height 0.3s ease; 
+      color: var(--light-text);
+      line-height: 1.6;
+    }
+    .faq-item.active .faq-answer { 
+      padding: 1rem; 
+      max-height: 500px; 
+    }
+    .faq-icon {
+      transition: transform 0.3s ease;
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+    
+    /* New features */
+    .scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 999;
+      box-shadow: var(--box-shadow);
+    }
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-top:hover {
+      background: #1a68d1;
+      transform: translateY(-3px);
+    }
+    
+    /* Loading animation */
+    .loader {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.8);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+    .loader.active {
+      display: flex;
+    }
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid var(--primary-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Service cards hover effects */
+    .card {
+      transition: var(--transition);
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+      .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+      }
+      .scroll-top {
+        width: 40px;
+        height: 40px;
+        bottom: 1rem;
+        right: 1rem;
+      }
+      .video-banner {
+        height: 60vh;
+      }
+      .banner-content {
+        right: 5%;
+        max-width: 300px;
+      }
+      .banner-content h1 {
+        font-size: 2rem;
+      }
+      .banner-content .express {
+        font-size: 2.5rem;
+      }
+      .banner-content p {
+        font-size: 1.2rem;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Loading overlay -->
+  <div class="loader" id="pageLoader">
+    <div class="spinner"></div>
+  </div>
+
   <!-- Price Modal -->
   <div class="price-modal" id="priceModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-content">
@@ -31,7 +333,7 @@
       <div class="modal-step visible" id="locationStep">
         <h2 id="modalTitle">Check Prices for Your Location</h2>
         <div class="location-search">
-          <input type="text" placeholder="Search Your Location" aria-label="Search location">
+          <input type="text" placeholder="Search Your Location" aria-label="Search location" class="search-input">
         </div>
         <div class="location-select">
           <select id="citySelect" aria-label="Select city" required>
@@ -39,12 +341,14 @@
             <option value="delhi">Delhi</option>
             <option value="mumbai">Mumbai</option>
             <option value="bangalore">Bangalore</option>
+            <option value="hyderabad">Hyderabad</option>
+            <option value="chennai">Chennai</option>
           </select>
         </div>
         <button class="view-price-btn" id="viewPriceBtn">View Price</button>
         <div class="delivery-info">
-          <p><span class="tick" aria-hidden="true">✔</span> Standard delivery 48 to 72 hours!</p>
-          <p><span class="tick" aria-hidden="true">✔</span> Express delivery in 24 hours!</p>
+          <p><i class="fas fa-check-circle" aria-hidden="true"></i> Standard delivery 48 to 72 hours!</p>
+          <p><i class="fas fa-check-circle" aria-hidden="true"></i> Express delivery in 24 hours!</p>
         </div>
       </div>
 
@@ -82,33 +386,69 @@
             </ul>
           </div>
           <div class="delivery-info">
-            <p>FREE PICK & DROP! MINIMUM ORDER ₹299.00</p>
+            <p><i class="fas fa-truck" aria-hidden="true"></i> FREE PICK & DROP! MINIMUM ORDER ₹299.00</p>
           </div>
         </div>
-        <button class="schedule-btn" id="scheduleBtn">Schedule</button>
-        <button class="back-btn" id="backBtn">Back</button>
+        <div class="modal-actions">
+          <button class="schedule-btn" id="scheduleBtn">Schedule Pickup</button>
+          <button class="back-btn secondary-btn" id="backBtn">Back</button>
+        </div>
       </div>
     </div>
   </div>
 
   <header>
-    <div class="logo">WEAR WISELY</div>
+    <div style="display: flex; align-items: center;">
+      <img src="logo.jpg" alt="Wear Wisely logo" class="logooo" loading="lazy">
+      <div class="logo">WEAR WISELY</div>
+    </div>
     <nav class="nav" aria-label="Main navigation">
-      <a href="#" class="nav-link">Login</a>
-      <a href="#" class="nav-link">Join Us</a>
-      <a href="#" class="nav-link">Contact us</a>
+      <a href="#" class="nav-link"><i class="fas fa-user" aria-hidden="true"></i> Login</a>
+      <a href="#" class="nav-link"><i class="fas fa-user-plus" aria-hidden="true"></i> Join Us</a>
+      <a href="#" class="nav-link"><i class="fas fa-phone" aria-hidden="true"></i> Contact us</a>
     </nav>
   </header>
 
   <main>
-    <section class="banner" aria-label="Service banner">
-      <h1>Do you need <span class="urgent">URGENT</span> service?</h1>
-      <h1 class="express">express</h1>
-      <p>enjoy fresh laundry & dry cleaning</p>
-    </section>
-
-    <section class="cover-banner">
-      <img src="f.jpg" alt="Dry cleaning service offer" class="first" loading="lazy">
+    <!-- Video Banner Section -->
+    <section class="video-banner" aria-label="Service banner">
+      <!-- YouTube Video Embed -->
+      <iframe 
+        class="video-background"
+        src="https://www.youtube.com/embed/Ay4gGW8pqbY?autoplay=1&mute=1&loop=1&playlist=Ay4gGW8pqbY&controls=0&disablekb=1&modestbranding=1&rel=0"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+      ></iframe>
+      
+      <!-- Overlay -->
+      <div class="video-overlay"></div>
+      
+      <!-- Banner Content -->
+      <div class="banner-content">
+        <h1>Do you need <span class="urgent">URGENT</span> service?</h1>
+        <h1 class="express">express</h1>
+        <p>enjoy fresh laundry & dry cleaning</p>
+        <button class="cta-button" id="mainCta">Book Now</button>
+      </div>
+      
+      <!-- Video Controls -->
+      <div class="video-controls">
+        <button class="control-btn" id="muteBtn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="23"></line>
+            <line x1="8" y1="23" x2="16" y2="23"></line>
+          </svg>
+        </button>
+        <button class="control-btn" id="pauseBtn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+        </button>
+      </div>
     </section>
 
     <section class="our-promise" aria-labelledby="promiseHeading">
@@ -116,14 +456,14 @@
       <div class="promise-content">
         <div class="promise-text">
           <ul>
-            <li><strong>Free pick & drop</strong><br>We provide free pick & drop facility at your doorstep.</li>
-            <li><strong>Affordable</strong><br>Our pricing policy is fair & transparent. What you see is what you pay!</li>
-            <li><strong>Quality assurance</strong><br>We strive to give the best laundry & dry cleaning experience.</li>
-            <li><strong>Convenience</strong><br>Book your service in less than 20 seconds.</li>
+            <li><i class="fas fa-home" aria-hidden="true"></i> <strong>Free pick & drop</strong><br>We provide free pick & drop facility at your doorstep.</li>
+            <li><i class="fas fa-rupee-sign" aria-hidden="true"></i> <strong>Affordable</strong><br>Our pricing policy is fair & transparent. What you see is what you pay!</li>
+            <li><i class="fas fa-award" aria-hidden="true"></i> <strong>Quality assurance</strong><br>We strive to give the best laundry & dry cleaning experience.</li>
+            <li><i class="fas fa-clock" aria-hidden="true"></i> <strong>Convenience</strong><br>Book your service in less than 20 seconds.</li>
           </ul>
         </div>
         <div class="promise-image">
-          <img src="image copy.png" alt="Happy customer with laundry basket" loading="lazy">
+          <img src="image copy 2.png" alt="Happy customer with laundry basket" loading="lazy">
         </div>
       </div>
     </section>
@@ -132,18 +472,22 @@
       <h2 id="servicesHeading">PRICING & SERVICES</h2>
       <div class="cards">
         <div class="card" tabindex="0" role="button" aria-label="Wash and Fold service">
+          <i class="fas fa-tshirt" aria-hidden="true"></i>
           Wash & Fold
           <div class="price">₹59/kg</div>
         </div>
         <div class="card" tabindex="0" role="button" aria-label="Wash and Iron service">
+          <i class="fas fa-iron" aria-hidden="true"></i>
           Wash & Iron
           <div class="price">₹89/kg</div>
         </div>
         <div class="card" tabindex="0" role="button" aria-label="Express Laundry service">
+          <i class="fas fa-bolt" aria-hidden="true"></i>
           Express Laundry
           <div class="price">₹149/kg</div>
         </div>
         <div class="card" tabindex="0" role="button" aria-label="Dry Cleaning service">
+          <i class="fas fa-dryer" aria-hidden="true"></i>
           Dry Cleaning
           <div class="price">₹59/piece</div>
         </div>
@@ -244,19 +588,81 @@
         </div>
       </div>
     </section>
-  </main>
 
   <footer class="footer" aria-label="Footer">
-    <div class="footer-links">
-      <a href="#">Refund Policy</a> | 
-      <a href="#">Terms of Use</a> |
-      <a href="#">Privacy Policy</a>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">How It Works</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Live Chat</a></li>
+          <li><a href="#">Help Center</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Connect With Us</h3>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/wearwisely?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="newsletter">
+          <h4>Subscribe to Newsletter</h4>
+          <form>
+            <input type="email" placeholder="Your email" aria-label="Email for newsletter">
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <p class="copyright">Copyright © 2024 Wear Wisely, All Rights Reserved.</p>
+    <div class="footer-bottom">
+      <div class="footer-links">
+        <a href="#">Refund Policy</a> | 
+        <a href="#">Terms of Use</a> |
+        <a href="#">Privacy Policy</a>
+      </div>
+      <p class="copyright">Copyright © 2024 Wear Wisely, All Rights Reserved.</p>
+    </div>
   </footer>
+
+  <!-- Scroll to top button -->
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // Show loading spinner
+    const loader = document.getElementById('pageLoader');
+    loader.classList.add('active');
+    
+    // Hide loader when page is loaded
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        loader.classList.remove('active');
+      }, 500);
+    });
+    
     // FAQ functionality
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
@@ -289,9 +695,10 @@
     const pricingStep = document.getElementById('pricingStep');
     const cityHeading = document.getElementById('cityHeading');
     const modalTitle = document.getElementById('modalTitle');
+    const mainCta = document.getElementById('mainCta');
     
     // Get all elements that should open the modal
-    const priceTriggers = document.querySelectorAll('.card, .services h2');
+    const priceTriggers = document.querySelectorAll('.card, .services h2, #mainCta');
     
     // Function to open modal
     function openModal() {
@@ -347,22 +754,31 @@
     viewPriceBtn.addEventListener('click', function() {
       const selectedCity = citySelect.value;
       if (selectedCity) {
-        // Update city heading
-        const cityName = selectedCity.charAt(0).toUpperCase() + selectedCity.slice(1);
-        cityHeading.textContent = `${cityName} Pricing`;
+        // Show loading state
+        viewPriceBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
         
-        // Animate transition between steps
-        locationStep.classList.remove('visible');
-        locationStep.classList.add('hidden');
-        
+        // Simulate API call delay
         setTimeout(() => {
-          pricingStep.classList.remove('hidden');
-          pricingStep.classList.add('visible');
-          // Enable schedule button
-          scheduleBtn.disabled = false;
-          // Focus on first interactive element in new step
-          scheduleBtn.focus();
-        }, 300);
+          // Update city heading
+          const cityName = selectedCity.charAt(0).toUpperCase() + selectedCity.slice(1);
+          cityHeading.textContent = `${cityName} Pricing`;
+          
+          // Animate transition between steps
+          locationStep.classList.remove('visible');
+          locationStep.classList.add('hidden');
+          
+          setTimeout(() => {
+            pricingStep.classList.remove('hidden');
+            pricingStep.classList.add('visible');
+            // Enable schedule button
+            scheduleBtn.disabled = false;
+            // Focus on first interactive element in new step
+            scheduleBtn.focus();
+            
+            // Reset button text
+            viewPriceBtn.textContent = 'View Price';
+          }, 300);
+        }, 800);
       } else {
         // Show error message with better accessibility
         const errorMsg = document.createElement('div');
@@ -397,9 +813,18 @@
     
     // Schedule button click
     scheduleBtn.addEventListener('click', function() {
-      // In a real implementation, this would redirect to booking page
-      alert('Redirecting to booking page...');
-      closeModalFunc();
+      // Show loading state
+      scheduleBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+      
+      // Simulate processing delay
+      setTimeout(() => {
+        // In a real implementation, this would redirect to booking page
+        alert('Redirecting to booking page...');
+        closeModalFunc();
+        
+        // Reset button text
+        scheduleBtn.innerHTML = 'Schedule Pickup';
+      }, 1000);
     });
     
     // Close modal when X is clicked
@@ -442,7 +867,39 @@
         }
       }
     });
-  });
-</script>
-</body>
-</html>
+    
+    // Scroll to top button
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollTopBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Video controls functionality
+    const videoIframe = document.querySelector('.video-background');
+    const muteBtn = document.getElementById('muteBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    let isMuted = true;
+    let isPaused = false;
+    
+    // Mute/Unmute functionality
+    muteBtn.addEventListener('click', function() {
+      isMuted = !isMuted;
+      const newSrc = videoIframe.src.replace(/mute=\d/, `mute=${isMuted ? 1 : 0}`);
+      videoIframe.src = newSrc;
+      
+      // Update button icon
+      muteBtn.innerHTML = isMuted ? 
+        `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12
