@@ -399,7 +399,6 @@
 
   <header>
     <div style="display: flex; align-items: center;">
-      <img src="logo.jpg" alt="Wear Wisely logo" class="logooo" loading="lazy">
       <div class="logo">WEAR WISELY</div>
     </div>
     <nav class="nav" aria-label="Main navigation">
@@ -902,4 +901,116 @@
       // Update button icon
       muteBtn.innerHTML = isMuted ? 
         `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12
+               <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+      <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+      <line x1="12" y1="19" x2="12" y2="23"></line>
+      <line x1="8" y1="23" x2="16" y2="23"></line>
+    </svg>` : 
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+      <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+      <path d="M15.5 10.5l5 5M20.5 10.5l-5 5" stroke-linecap="round"></path>
+      <line x1="12" y1="19" x2="12" y2="23"></line>
+      <line x1="8" y1="23" x2="16" y2="23"></line>
+    </svg>`;
+    });
+
+    // Pause/Play functionality
+    pauseBtn.addEventListener('click', function() {
+      isPaused = !isPaused;
+      const currentSrc = videoIframe.src;
+      let newSrc;
+      
+      if (isPaused) {
+        newSrc = currentSrc.replace('autoplay=1', 'autoplay=0');
+        // YouTube doesn't support direct pause through URL, so we'll just mute and hide controls
+        newSrc = newSrc + '&mute=1&controls=0';
+      } else {
+        newSrc = currentSrc.replace('autoplay=0', 'autoplay=1');
+        newSrc = newSrc.replace('&mute=1&controls=0', '') + '&mute=' + (isMuted ? '1' : '0');
+      }
+      
+      videoIframe.src = newSrc;
+      
+      // Update button icon
+      pauseBtn.innerHTML = isPaused ?
+        `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 14L11 14V20L19 20V14Z" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11 10L11 4L19 4L19 10" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>` :
+        `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="6" y="4" width="4" height="16"></rect>
+          <rect x="14" y="4" width="4" height="16"></rect>
+        </svg>`;
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Form submission handling
+    const newsletterForm = document.querySelector('.newsletter form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const emailInput = this.querySelector('input[type="email"]');
+        const email = emailInput.value.trim();
+        
+        if (email && validateEmail(email)) {
+          // Show success message
+          alert('Thank you for subscribing to our newsletter!');
+          emailInput.value = '';
+        } else {
+          alert('Please enter a valid email address.');
+          emailInput.focus();
+        }
+      });
+    }
+
+    // Email validation helper
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+
+    // Initialize animations when elements come into view
+    const animateOnScroll = function() {
+      const elements = document.querySelectorAll('.step, .card, .faq-item');
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if (elementPosition < screenPosition) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
+      });
+    };
+
+    // Set initial state for animated elements
+    document.querySelectorAll('.step, .card, .faq-item').forEach(element => {
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(20px)';
+      element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    });
+
+    window.addEventListener('scroll', animateOnScroll);
+    // Trigger once on load in case elements are already visible
+    animateOnScroll();
+  });
+</script>
+</body>
+</html>
